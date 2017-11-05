@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VgmsDb.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Address" Type="ntext" />
+          <Property Name="MobileNumber" Type="int" Nullable="false" />
+          <Property Name="GenderEnumId" Type="int" Nullable="false" />
+          <Property Name="Diposite" Type="float" Nullable="false" />
+          <Property Name="CreateById" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateById" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TotalItem" Type="int" Nullable="false" />
+          <Property Name="TotalSellingPrice" Type="real" Nullable="false" />
+          <Property Name="CreateById" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateById" Type="int" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="InRent" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DurationInMin" Type="float" Nullable="false" />
+          <Property Name="VideoTypeId" Type="int" Nullable="false" />
+          <Property Name="Actors" Type="ntext" Nullable="false" />
+          <Property Name="Directors" Type="ntext" Nullable="false" />
+          <Property Name="Producers" Type="ntext" Nullable="false" />
+          <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+          <Property Name="ImagePath" Type="ntext" />
+          <Property Name="StatusEnumId" Type="int" />
+          <Property Name="TotalItem" Type="int" Nullable="false" />
+          <Property Name="TotalSold" Type="int" Nullable="false" />
+          <Property Name="BuyPrice" Type="real" Nullable="false" />
+          <Property Name="SellingPrice" Type="real" Nullable="false" />
+          <Property Name="TotalRented" Type="int" Nullable="false" />
+          <Property Name="CreateById" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rented">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="RentDate" Type="datetime" Nullable="false" />
+          <Property Name="ReturnDate" Type="datetime" Nullable="false" />
+          <Property Name="RentAmount" Type="float" Nullable="false" />
+          <Property Name="IsReturned" Type="bit" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sold">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitSellingPrice" Type="real" Nullable="false" />
+          <Property Name="TotalPrice" Type="real" Nullable="false" />
+          <Property Name="SaleDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Dob" Type="datetime" Nullable="false" />
+          <Property Name="GenderEnumId" Type="int" Nullable="false" />
+          <Property Name="TypeEnumId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Rented_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rented_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rented_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sold_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sold_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VgmsDbStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" store:Type="Tables" />
+          <EntitySet Name="Rented" EntityType="Self.Rented" store:Type="Tables" />
+          <EntitySet Name="Sold" EntityType="Self.Sold" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" store:Type="Tables" />
+          <AssociationSet Name="FK_Rented_Customer" Association="Self.FK_Rented_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rented_Invoice" Association="Self.FK_Rented_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rented_Product" Association="Self.FK_Rented_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sold_Invoice" Association="Self.FK_Sold_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sold_Product" Association="Self.FK_Sold_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VgmsDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="Int32" Nullable="false" />
+          <Property Name="GenderEnumId" Type="Int32" Nullable="false" />
+          <Property Name="Diposite" Type="Double" Nullable="false" />
+          <Property Name="CreateById" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateById" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Customer" FromRole="Customer" ToRole="Rented" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TotalItem" Type="Int32" Nullable="false" />
+          <Property Name="TotalSellingPrice" Type="Single" Nullable="false" />
+          <Property Name="CreateById" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateById" Type="Int32" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InRent" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Invoice" FromRole="Invoice" ToRole="Rented" />
+          <NavigationProperty Name="Sold" Relationship="Self.FK_Sold_Invoice" FromRole="Invoice" ToRole="Sold" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DurationInMin" Type="Double" Nullable="false" />
+          <Property Name="VideoTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Actors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Directors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Producers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StatusEnumId" Type="Int32" />
+          <Property Name="TotalItem" Type="Int32" Nullable="false" />
+          <Property Name="TotalSold" Type="Int32" Nullable="false" />
+          <Property Name="BuyPrice" Type="Single" Nullable="false" />
+          <Property Name="SellingPrice" Type="Single" Nullable="false" />
+          <Property Name="TotalRented" Type="Int32" Nullable="false" />
+          <Property Name="CreateById" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Product" FromRole="Product" ToRole="Rented" />
+          <NavigationProperty Name="Sold" Relationship="Self.FK_Sold_Product" FromRole="Product" ToRole="Sold" />
+        </EntityType>
+        <EntityType Name="Rented">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="RentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RentAmount" Type="Double" Nullable="false" />
+          <Property Name="IsReturned" Type="Boolean" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Rented_Customer" FromRole="Rented" ToRole="Customer" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Rented_Invoice" FromRole="Rented" ToRole="Invoice" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Rented_Product" FromRole="Rented" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Sold">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitSellingPrice" Type="Single" Nullable="false" />
+          <Property Name="TotalPrice" Type="Single" Nullable="false" />
+          <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Sold_Invoice" FromRole="Sold" ToRole="Invoice" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Sold_Product" FromRole="Sold" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GenderEnumId" Type="Int32" Nullable="false" />
+          <Property Name="TypeEnumId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Rented_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rented_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sold_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rented_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rented">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sold_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sold">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VgmsDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Rented" EntityType="Self.Rented" />
+          <EntitySet Name="Sold" EntityType="Self.Sold" />
+          <EntitySet Name="Test" EntityType="Self.Test" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+          <AssociationSet Name="FK_Rented_Customer" Association="Self.FK_Rented_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rented_Invoice" Association="Self.FK_Rented_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sold_Invoice" Association="Self.FK_Sold_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rented_Product" Association="Self.FK_Rented_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Rented" EntitySet="Rented" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sold_Product" Association="Self.FK_Sold_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sold" EntitySet="Sold" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VgmsDbStoreContainer" CdmEntityContainer="VgmsDbContext">
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="VgmsDb.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="GenderEnumId" ColumnName="GenderEnumId" />
+                <ScalarProperty Name="Diposite" ColumnName="Diposite" />
+                <ScalarProperty Name="CreateById" ColumnName="CreateById" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateById" ColumnName="UpdateById" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoice">
+            <EntityTypeMapping TypeName="VgmsDb.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TotalItem" ColumnName="TotalItem" />
+                <ScalarProperty Name="TotalSellingPrice" ColumnName="TotalSellingPrice" />
+                <ScalarProperty Name="CreateById" ColumnName="CreateById" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateById" ColumnName="UpdateById" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="InRent" ColumnName="InRent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="VgmsDb.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DurationInMin" ColumnName="DurationInMin" />
+                <ScalarProperty Name="VideoTypeId" ColumnName="VideoTypeId" />
+                <ScalarProperty Name="Actors" ColumnName="Actors" />
+                <ScalarProperty Name="Directors" ColumnName="Directors" />
+                <ScalarProperty Name="Producers" ColumnName="Producers" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="StatusEnumId" ColumnName="StatusEnumId" />
+                <ScalarProperty Name="TotalItem" ColumnName="TotalItem" />
+                <ScalarProperty Name="TotalSold" ColumnName="TotalSold" />
+                <ScalarProperty Name="BuyPrice" ColumnName="BuyPrice" />
+                <ScalarProperty Name="SellingPrice" ColumnName="SellingPrice" />
+                <ScalarProperty Name="TotalRented" ColumnName="TotalRented" />
+                <ScalarProperty Name="CreateById" ColumnName="CreateById" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rented">
+            <EntityTypeMapping TypeName="VgmsDb.Rented">
+              <MappingFragment StoreEntitySet="Rented">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="RentDate" ColumnName="RentDate" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="RentAmount" ColumnName="RentAmount" />
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sold">
+            <EntityTypeMapping TypeName="VgmsDb.Sold">
+              <MappingFragment StoreEntitySet="Sold">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitSellingPrice" ColumnName="UnitSellingPrice" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test">
+            <EntityTypeMapping TypeName="VgmsDb.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="VgmsDb.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="GenderEnumId" ColumnName="GenderEnumId" />
+                <ScalarProperty Name="TypeEnumId" ColumnName="TypeEnumId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

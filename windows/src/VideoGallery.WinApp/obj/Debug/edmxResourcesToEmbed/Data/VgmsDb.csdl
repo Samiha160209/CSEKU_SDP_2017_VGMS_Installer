@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VgmsDb" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNumber" Type="Int32" Nullable="false" />
+    <Property Name="GenderEnumId" Type="Int32" Nullable="false" />
+    <Property Name="Diposite" Type="Double" Nullable="false" />
+    <Property Name="CreateById" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateById" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Customer" FromRole="Customer" ToRole="Rented" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TotalItem" Type="Int32" Nullable="false" />
+    <Property Name="TotalSellingPrice" Type="Single" Nullable="false" />
+    <Property Name="CreateById" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateById" Type="Int32" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="InRent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Invoice" FromRole="Invoice" ToRole="Rented" />
+    <NavigationProperty Name="Sold" Relationship="Self.FK_Sold_Invoice" FromRole="Invoice" ToRole="Sold" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DurationInMin" Type="Double" Nullable="false" />
+    <Property Name="VideoTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Actors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Directors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Producers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StatusEnumId" Type="Int32" />
+    <Property Name="TotalItem" Type="Int32" Nullable="false" />
+    <Property Name="TotalSold" Type="Int32" Nullable="false" />
+    <Property Name="BuyPrice" Type="Single" Nullable="false" />
+    <Property Name="SellingPrice" Type="Single" Nullable="false" />
+    <Property Name="TotalRented" Type="Int32" Nullable="false" />
+    <Property Name="CreateById" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Rented" Relationship="Self.FK_Rented_Product" FromRole="Product" ToRole="Rented" />
+    <NavigationProperty Name="Sold" Relationship="Self.FK_Sold_Product" FromRole="Product" ToRole="Sold" />
+  </EntityType>
+  <EntityType Name="Rented">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="RentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RentAmount" Type="Double" Nullable="false" />
+    <Property Name="IsReturned" Type="Boolean" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Rented_Customer" FromRole="Rented" ToRole="Customer" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK_Rented_Invoice" FromRole="Rented" ToRole="Invoice" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Rented_Product" FromRole="Rented" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Sold">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitSellingPrice" Type="Single" Nullable="false" />
+    <Property Name="TotalPrice" Type="Single" Nullable="false" />
+    <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK_Sold_Invoice" FromRole="Sold" ToRole="Invoice" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Sold_Product" FromRole="Sold" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Test">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Mobile" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Dob" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="GenderEnumId" Type="Int32" Nullable="false" />
+    <Property Name="TypeEnumId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Rented_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rented">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rented_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rented">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sold_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sold">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rented_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Rented" Type="Self.Rented" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rented">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sold_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Sold" Type="Self.Sold" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sold">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VgmsDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Rented" EntityType="Self.Rented" />
+    <EntitySet Name="Sold" EntityType="Self.Sold" />
+    <EntitySet Name="Test" EntityType="Self.Test" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <AssociationSet Name="FK_Rented_Customer" Association="Self.FK_Rented_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Rented" EntitySet="Rented" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rented_Invoice" Association="Self.FK_Rented_Invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="Rented" EntitySet="Rented" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sold_Invoice" Association="Self.FK_Sold_Invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="Sold" EntitySet="Sold" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rented_Product" Association="Self.FK_Rented_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Rented" EntitySet="Rented" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sold_Product" Association="Self.FK_Sold_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Sold" EntitySet="Sold" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
